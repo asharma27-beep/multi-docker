@@ -4,23 +4,23 @@ services:
     - docker
 
 before_install:
-    - docker build -t arnabdocker001/asharma27/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t arnabdocker001/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-        - docker run -e CI=true arnabdocker001/asharma27/react-test npm run test -- --coverage
+        - docker run -e CI=true arnabdocker001/react-test npm run test -- --coverage
 
 after_success:
-    - docker build -t arnabdocker001/asharma27/multi-client ./client
-    - docker build -t arnabdocker001/asharma27/multi-nginx ./nginx
-    - docker build -t arnabdocker001/asharma27/multi-server ./server
-    - docker build -t arnabdocker001/asharma27/multi-worker ./worker
+    - docker build -t arnabdocker001/multi-client ./client
+    - docker build -t arnabdocker001/multi-nginx ./nginx
+    - docker build -t arnabdocker001/multi-server ./server
+    - docker build -t arnabdocker001/multi-worker ./worker
     
     # Log into Docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
     # Take those images and push those to Docker Hub
-    - docker push arnabdocker001/asharma27/multi-client
-    - docker push arnabdocker001/asharma27/multi-nginx
-    - docker push arnabdocker001/asharma27/multi-server
-    - docker push arnabdocker001/asharma27/multi-worker
+    - docker push arnabdocker001/multi-client
+    - docker push arnabdocker001/multi-nginx
+    - docker push arnabdocker001/multi-server
+    - docker push arnabdocker001/multi-worker
 
