@@ -4,7 +4,7 @@ services:
     - docker
 
 before_install:
-    - docker build -t asharma27/react-test -f Dockerfile.dev ./client/Dockerfile.dev ./client
+    - docker build -t asharma27/react-test -f ./client/Dockerfile.dev ./client
 
 script:
         - docker run -e CI=true asharma27/react-test npm run test -- --coverage
@@ -17,7 +17,7 @@ after_success:
     
     # Log into Docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    
+
     # Take those images and push those to Docker Hub
     - docker push asharma27/multi-client
     - docker push asharma27/multi-nginx
