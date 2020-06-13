@@ -24,3 +24,16 @@ after_success:
     - docker push arnabdocker001/multi-server
     - docker push arnabdocker001/multi-worker
 
+    # Deploy to Elastic Beanstalk
+    deploy:
+        provider: elasticbeanstalk
+        region: "us-east-1"
+        app: "multi-docker"
+        env: "MultiDocker-env"
+        bucket_name: "elasticbeanstalk-us-east-1-364121972192"
+        bucket_path: "docker-multi"
+        on:
+            branch: master
+        access_key_id: $AWS_ACCESS_KEY
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+
